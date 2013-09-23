@@ -42,6 +42,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MassTransit.2.6.5\lib\net40\MassTransit.dll</HintPath>
     </Reference>
+    <Reference Include="MassTransit.StructureMapIntegration">
+      <HintPath>..\packages\MassTransit.StructureMap.2.6.5\lib\net40\MassTransit.StructureMapIntegration.dll</HintPath>
+    </Reference>
     <Reference Include="MassTransit.Transports.MSMQ, Version=2.6.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MassTransit.2.6.5\lib\net40\MassTransit.Transports.MSMQ.dll</HintPath>
@@ -49,7 +52,11 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />

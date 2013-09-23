@@ -1,48 +1,56 @@
 ﻿using System;
+using System.Configuration;
 using System.Text;
 using System.Threading;
 using Common;
+using Common.Interfaces;
 using Common.Messages;
 using MassTransit;
+using StructureMap;
+using Common.Ioc;
 
 namespace Publisher
 {
     class Publisher
     {
+        private static IContainer _container; 
+        private static IServiceBus _bus; 
+
         static void Main(string[] args)
         {
-            IServiceBus bus = ServiceBusFactory.New(sbc =>
-            {
-                sbc.ReceiveFrom("msmq://localhost/mt_my_publisher");
-                sbc.SetPurgeOnStartup(true);
+            _container = BootstrapContainer();
 
-                sbc.UseMsmq(); 
-                sbc.UseMulticastSubscriptionClient();
-                sbc.UseSubscriptionService("msmq://localhost/mt_subscriptions");
-                sbc.UseControlBus();
-            });
+            _bus = _container.GetInstance<IServiceBus>(); 
 
-            InspectorGadget.WriteDetails(bus);
+            InspectorGadget.WriteDetails(_bus);
 
             Thread.Sleep(5000); 
 
-            //bus.Publish(new Common.TextMessage { Text = "Hello world @ " + DateTime.Now.ToString("HH:mm:ss") });
-
-            bus.Publish(new AddCustomerMessage() { FirstName = "Mickey", LastName = "Mouse", PublishedDateTime = DateTime.Now.ToString("HH:mm:ss") });
-
-            //IServiceBus bus = ServiceBusFactory.New(sbc =>
-            //{
-            //    sbc.UseMsmq(x => x.UseSubscriptionService("msmq://localhost/mt_subscriptions"));
-            //    sbc.UseControlBus();
-            //    sbc.ReceiveFrom("msmq://localhost/mt_gth_test");
-            //});
-
-            //var message = new Common.TextMessage { Text = "Hello world @ " + DateTime.Now.ToString("HH:mm:ss") };
-            //var sendTo = "msmq://localhost/mt_gth_test2";
-            //bus.GetEndpoint(new Uri(sendTo)).Send(message);
-
+            _bus.Publish(new AddCustomerMessage() { FirstName = "Mickey", LastName = "Mouse", PublishedDateTime = DateTime.Now.ToString("HH:mm:ss") });
+            _bus.Publish(new DeleteCustomerMessage(){ CustomerId = 10});
         }
 
+        
+        private static IContainer BootstrapContainer()
+        {
+            var container = new Container(); 
+
+            // configure messages
+            container.Configure(x => x.AddRegistry(new MessageRegistry()));
+
+            container.Configure(cfg => cfg.For<IServiceBus>().Use(context => ServiceBusFactory.New(sbc =>
+                {
+                    sbc.ReceiveFrom(ConfigurationManager.AppSettings[Constants.AppSettingKeys.PublisherSourceQueue]);
+                    sbc.SetPurgeOnStartup(true);
+
+                    sbc.UseMsmq();
+                    sbc.UseMulticastSubscriptionClient();
+                    sbc.UseSubscriptionService(ConfigurationManager.AppSettings[Constants.AppSettingKeys.SubscriptionServiceQueue]);
+                    sbc.UseControlBus();
+                })));
+
+            return container;
+        }
     
     }
 }
