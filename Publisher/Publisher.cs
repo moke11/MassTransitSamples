@@ -30,7 +30,6 @@ namespace Publisher
             _bus.Publish(new DeleteCustomerMessage(){ CustomerId = 10});
         }
 
-        
         private static IContainer BootstrapContainer()
         {
             var container = new Container(); 

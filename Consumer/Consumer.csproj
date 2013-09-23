@@ -64,9 +64,16 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Topshelf">
+      <HintPath>..\packages\Topshelf.3.1.1\lib\net40-full\Topshelf.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsumerService.cs" />
+    <Compile Include="Handlers\ConsumeAddCustomerMessage.cs" />
+    <Compile Include="Handlers\ConsumeDeleteCustomerMessage.cs" />
     <Compile Include="Consumer.cs" />
+    <Compile Include="Handlers\ConsumerClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
