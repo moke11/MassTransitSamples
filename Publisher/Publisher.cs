@@ -12,20 +12,18 @@ namespace Publisher
         {
             IServiceBus bus = ServiceBusFactory.New(sbc =>
             {
-                sbc.ReceiveFrom("msmq://localhost/mt_gth_test");
-                sbc.SetPurgeOnStartup(true); 
+                sbc.ReceiveFrom("msmq://localhost/mt_my_publisher");
+                sbc.SetPurgeOnStartup(true);
 
-                sbc.UseMsmq(x =>
-                {
-                    x.UseSubscriptionService("msmq://localhost/mt_subscriptions");
-                    x.UseMulticastSubscriptionClient();
-                });
+                sbc.UseMsmq(); 
+                sbc.UseMulticastSubscriptionClient();
+                sbc.UseSubscriptionService("msmq://localhost/mt_subscriptions");
                 sbc.UseControlBus();
             });
 
             InspectorGadget.WriteDetails(bus);
 
-            Thread.Sleep(20); 
+            Thread.Sleep(5000); 
 
             bus.Publish(new Common.TextMessage { Text = "Hello world @ " + DateTime.Now.ToString("HH:mm:ss") });
 
