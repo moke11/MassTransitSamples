@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddCustomerMessage.cs" />
     <Compile Include="InspectorGadget.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TextMessage.cs" />

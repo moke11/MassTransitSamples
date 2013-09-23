@@ -12,6 +12,14 @@ namespace Consumer
         }
     }
 
+    public class ConsumeAddCustomerMessage  : Consumes<AddCustomerMessage>.All
+    {
+        public void Consume(AddCustomerMessage message)
+        {
+            Console.WriteLine(string.Format("Received Add Customer: {0}, {1} at {2}", message.LastName, message.FirstName, message.PublishedDateTime));
+        }
+    }
+
     class Consumer
     {
         static void Main(string[] args)
@@ -33,6 +41,8 @@ namespace Consumer
 
                 sbc.Subscribe(x => x.Handler<TextMessage>(msg => Console.WriteLine(msg.Text)));
                 //sbc.Subscribe(cfg => cfg.Instance(c));
+
+                sbc.Subscribe(x => x.Consumer<ConsumeAddCustomerMessage>());
             });
 
             InspectorGadget.WriteDetails(bus);

@@ -25,7 +25,9 @@ namespace Publisher
 
             Thread.Sleep(5000); 
 
-            bus.Publish(new Common.TextMessage { Text = "Hello world @ " + DateTime.Now.ToString("HH:mm:ss") });
+            //bus.Publish(new Common.TextMessage { Text = "Hello world @ " + DateTime.Now.ToString("HH:mm:ss") });
+
+            bus.Publish(new AddCustomerMessage() { FirstName = "Mickey", LastName = "Mouse", PublishedDateTime = DateTime.Now.ToString("HH:mm:ss") });
 
             //IServiceBus bus = ServiceBusFactory.New(sbc =>
             //{
