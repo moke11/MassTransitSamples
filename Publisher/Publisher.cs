@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading;
 using Common;
+using Common.Messages;
 using MassTransit;
 
 namespace Publisher

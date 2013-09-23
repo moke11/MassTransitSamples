@@ -1,5 +1,6 @@
 ﻿using System;
 using Common;
+using Common.Interfaces;
 using MassTransit;
 
 namespace Consumer
@@ -12,9 +13,9 @@ namespace Consumer
         }
     }
 
-    public class ConsumeAddCustomerMessage  : Consumes<AddCustomerMessage>.All
+    public class ConsumeAddCustomerMessage  : Consumes<IAddCustomerMessage>.All
     {
-        public void Consume(AddCustomerMessage message)
+        public void Consume(IAddCustomerMessage message)
         {
             Console.WriteLine(string.Format("Received Add Customer: {0}, {1} at {2}", message.LastName, message.FirstName, message.PublishedDateTime));
         }
