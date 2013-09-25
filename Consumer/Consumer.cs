@@ -24,7 +24,10 @@ namespace Consumer
                     c.SetDisplayName("Consumer Display Name");
                     c.SetDescription("a Masstransit sample service for hosting consumers.");
 
+                    // list dependencies 
                     c.DependsOnMsmq();
+                    c.DependsOnMsSql();
+
                     c.RunAsLocalService();
 
                     c.Service<ConsumerService>(s =>
@@ -37,6 +40,8 @@ namespace Consumer
                                     container.Dispose();
                                 });
                         });
+
+                    c.StartAutomatically(); 
                 }); 
 
             InspectorGadget.WriteDetails(bus);
