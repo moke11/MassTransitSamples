@@ -20,7 +20,7 @@ namespace Publisher
         {
             _container = BootstrapContainer();
 
-            _bus = _container.GetInstance<IServiceBus>(); 
+            _bus = _container.GetInstance<IServiceBus>();
 
             InspectorGadget.WriteDetails(_bus);
 
