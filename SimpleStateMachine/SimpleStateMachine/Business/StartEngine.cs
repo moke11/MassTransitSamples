@@ -1,6 +1,6 @@
 using System;
 
-namespace SimpleStateMachine.Messages
+namespace SimpleStateMachine.Business
 {
     public class StartEngine
     {

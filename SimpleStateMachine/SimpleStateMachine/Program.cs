@@ -43,7 +43,6 @@ namespace SimpleStateMachine
                             });
                         });
                         
-                        // cfg.AddBus(ConfigureBus);
                         cfg.AddRequestClient<EngineStatusRequest>();
                     });
 

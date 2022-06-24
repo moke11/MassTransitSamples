@@ -1,6 +1,5 @@
 using System;
 using MassTransit;
-using SimpleStateMachine.Messages;
 
 namespace SimpleStateMachine.Business
 {
@@ -15,12 +14,12 @@ namespace SimpleStateMachine.Business
 
             Initially(
                 When(Started)
-                    .Then(context => {Console.WriteLine($"started and running {context.Instance.CorrelationId}");})
+                    .Then(context => {Console.WriteLine($"started and running {context.Saga.CorrelationId}");})
                     .TransitionTo(Running));
 
             During(Running,
                 When(Stopped)
-                    .Then(context => {Console.WriteLine($"stopped {context.Instance.CorrelationId}");})
+                    .Then(context => {Console.WriteLine($"stopped {context.Saga.CorrelationId}");})
                     .Finalize());
         }
 

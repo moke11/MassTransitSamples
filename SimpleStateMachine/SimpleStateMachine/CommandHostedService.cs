@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using MassTransit;
 using Microsoft.Extensions.Hosting;
 using SimpleStateMachine.Business;
-using SimpleStateMachine.Messages;
 
 namespace SimpleStateMachine
 {
@@ -59,9 +58,10 @@ namespace SimpleStateMachine
             }
         }
 
-        public async Task StopAsync(CancellationToken cancellationToken)
+        public Task StopAsync(CancellationToken cancellationToken)
         {
-            Console.WriteLine($"{this.GetType().Name} stop async");
+            Console.WriteLine($"{GetType().Name} stop async");
+            return Task.CompletedTask;
         }
     }
 }
