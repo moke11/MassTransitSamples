@@ -1,6 +1,6 @@
 using System;
 
-namespace SimpleStateMachine.Business
+namespace SimpleStateMachine.Engine
 {
     public class StartEngine
     {

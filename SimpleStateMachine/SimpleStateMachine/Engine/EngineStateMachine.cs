@@ -1,7 +1,7 @@
 using System;
 using MassTransit;
 
-namespace SimpleStateMachine.Business
+namespace SimpleStateMachine.Engine
 {
     public class EngineStateMachine : MassTransitStateMachine<EngineState>
     {
